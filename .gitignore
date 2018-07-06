@@ -1,0 +1,25 @@
+# Compiled files and backups
+*.tfstate
+*.tfstate.*.backup
+*.tfstate.backup
+
+# Module directory
+.terraform/
+
+# Terraform logs
+terraform.log
+
+# Other system or application specific files and junk
+*.DS_Store
+*.egg*
+*.log
+*.dll
+*.exe
+*.mo
+*.pyc
+*.swo
+*.swp
+.*.swp
+*.orig
+.idea
+.project
