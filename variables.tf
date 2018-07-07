@@ -9,8 +9,8 @@ variable "bucket_name" {
 }
 
 variable "region" {
-  type = "string"
-  description ="Name of the region in which resources will be created."
+  type        = "string"
+  description = "Name of the region in which resources will be created."
 }
 
 variable "linux_admin_username" {

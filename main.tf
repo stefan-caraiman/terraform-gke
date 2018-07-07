@@ -1,12 +1,4 @@
 #############################################################
-# Terraform version, should work with 0.10 or higher, but
-# I did not managet to test it.
-#############################################################
-terraform {
-  required_version = ">= 0.11.7"
-}
-
-#############################################################
 # Defining the Google provider and GCS backend used
 # for storing the state of the Terraform infrastructure.
 ############################################################
@@ -18,10 +10,12 @@ provider "google" {
 }
 
 terraform {
+  required_version = ">= 0.11.7"
+
   backend "gcs" {
-    bucket  = "${var.bucket_name}"
+    bucket  = "terraform-gke-209511-bucket"
     prefix  = "/terraform.tfstate"
-    project = "${var.project_name}"
+    project = "terraform-gke-209511"
   }
 }
 
@@ -61,9 +55,13 @@ resource "google_container_cluster" "gcp_kubernetes" {
       this-is-for = "dev-cluster"
     }
 
-    tags = ["dev", "work"]
+    tags = ["dev"]
   }
 }
+
+############################################################
+# Output variables of the resources
+############################################################
 
 output "gcp_cluster_endpoint" {
   value = "${google_container_cluster.gcp_kubernetes.endpoint}"
@@ -77,7 +75,6 @@ output "gcp_cluster_name" {
   value = "${google_container_cluster.gcp_kubernetes.name}"
 }
 
-# The following outputs allow authentication and connectivity to the GKE Cluster.
 output "client_certificate" {
   value = "${google_container_cluster.gcp_kubernetes.master_auth.0.client_certificate}"
 }
