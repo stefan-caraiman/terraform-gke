@@ -1,3 +1,7 @@
+# Credentials and private data files
+account.json
+terraform.tfvars
+
 # Compiled files and backups
 *.tfstate
 *.tfstate.*.backup
