@@ -1,4 +1,12 @@
 #############################################################
+# Terraform version, should work with 0.10 or higher, but
+# I did not managet to test it.
+#############################################################
+terraform {
+  required_version = ">= 0.11.7"
+}
+
+#############################################################
 # Defining the Google provider and GCS backend used
 # for storing the state of the Terraform infrastructure.
 ############################################################
