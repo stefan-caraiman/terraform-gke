@@ -34,9 +34,10 @@ terraform {
 # }
 
 resource "google_container_cluster" "gcp_kubernetes" {
-  name               = "${var.cluster_name}"
-  zone               = "${var.region}"
-  initial_node_count = "${var.gcp_cluster_count}"
+  name                     = "${var.cluster_name}"
+  zone                     = "${var.region}"
+  initial_node_count       = "${var.gcp_cluster_count}"
+  remove_default_node_pool = true
 
   master_auth {
     username = "${var.linux_admin_username}"
@@ -45,17 +46,25 @@ resource "google_container_cluster" "gcp_kubernetes" {
 
   node_config {
     oauth_scopes = [
-      "https://www.googleapis.com/auth/compute",
-      "https://www.googleapis.com/auth/devstorage.read_only",
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
     ]
+  }
+}
 
-    labels {
-      this-is-for = "dev-cluster"
-    }
+resource "google_container_node_pool" "primary_pool" {
+  name       = "${google_container_cluster.gcp_kubernetes.name}-primary-pool"
+  cluster    = "${google_container_cluster.gcp_kubernetes.name}"
+  zone       = "${var.region}"
+  node_count = "3"
 
-    tags = ["dev"]
+  node_config {
+    machine_type = "${var.machine_size}"
+  }
+
+  autoscaling {
+    min_node_count = 3
+    max_node_count = 5
   }
 }
 

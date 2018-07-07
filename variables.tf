@@ -13,6 +13,12 @@ variable "region" {
   description = "Name of the region in which resources will be created."
 }
 
+variable "machine_size" {
+  type        = "string"
+  description = "The size for the nodes."
+  default     = "n1-standard-1"
+}
+
 variable "linux_admin_username" {
   type        = "string"
   description = "User name for authentication to the Kubernetes linux agent virtual machines in the cluster."
