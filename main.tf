@@ -25,6 +25,9 @@ terraform {
 # is not available. Don't forget to comment the previous backend.
 #############################################################
 
+# For development purposes, consul can simply be start with
+# "consul agent -dev"
+
 # terraform {
 #   backend "consul" {
 #     address = "127.0.0.1:8500"
