@@ -1,0 +1,15 @@
+env:
+  - terraform_version=0.11.7
+
+sudo: required
+
+language: bash
+
+before_install:
+  - wget https://releases.hashicorp.com/terraform/${terraform_version}/terraform_${terraform_version}_linux_amd64.zip -O /tmp/terraform.zip
+  - sudo unzip -d /usr/local/bin/ /tmp/terraform.zip
+
+script:
+  - modules=$(find . -type f -name "*.tf" -exec dirname {} \;|sort -u)
+  - for module in $modules; do (terraform validate "$module" && echo "✓ $module") || exit 1 ; done
+  - if [ `terraform fmt | wc -c` -ne 0 ]; then echo "Terraform files need be formatted, please run terraform fmt"; exit 1;
