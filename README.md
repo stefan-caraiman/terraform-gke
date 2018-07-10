@@ -1,4 +1,4 @@
-# terraform-gke
+# terraform-gke [![Build Status](https://travis-ci.org/stefan-caraiman/terraform-gke.svg?branch=master)](https://travis-ci.org/stefan-caraiman/terraform-gke)
 
 # About:
 
