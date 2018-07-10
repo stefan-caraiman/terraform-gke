@@ -13,4 +13,5 @@ script:
   - terraform init -backend=false
   - modules=$(find . -type f -name "*.tf" -exec dirname {} \;|sort -u)
   - for module in $modules; do (terraform validate -check-variables=false "$module" && echo "✓ $module") || exit 1 ; done
-  - if [ `terraform fmt | wc -c` -ne 0 ]; then echo "Terraform files need be formatted, please run terraform fmt"; exit 1;
+  - if [ `terraform fmt | wc -c` -ne 0 ]; then echo "Terraform files need be formatted, please run terraform fmt"; exit 1; fi
+  - echo "Terraform validation successful!"
